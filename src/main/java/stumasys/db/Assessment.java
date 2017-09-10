@@ -1,4 +1,4 @@
-package stumasys;
+package stumasys.db;
 
 public interface Assessment {
     public int getMarkCap();

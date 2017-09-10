@@ -19,6 +19,7 @@ import java.util.ArrayList;
 @RestController         // response functionality
 @RequestMapping("/course/**")
 public class CourseController {
+    /*
 
     @Autowired      // links this with the CourseService
     CourseService cs;
@@ -31,7 +32,7 @@ public class CourseController {
     public Courses getCourse(@PathVariable("key") String key){
         return cs.getCourse(key);
     }
-/*
+    */
     @RequestMapping(value = "/course/{year}/{courseCode}") // sorry for commenting out all of your code
     public String courseHandler(
             @PathVariable String year,
@@ -46,5 +47,4 @@ public class CourseController {
 
         return "course";
     }
-*/
 }

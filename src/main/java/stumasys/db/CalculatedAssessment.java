@@ -1,3 +1,5 @@
+package stumasys.db;
+
 import java.util.List;
 import java.util.Iterator;
 
@@ -15,20 +17,22 @@ public class CalculatedAssessment implements Assessment {
     private List<Integer> weight;
     private int markCap;
 
-    public CalculatedAssessment(List<Assessment> src, List<Integer> weight) {
-        assert(src.size() == weight.size());
-
+    public static int calculateAppropriateMarkCap(List<Assessment> src, List<Integer> weight) {
         Iterator<Integer> wIter = weight.iterator();
         int mc = 0;
         for (Assessment a : src) {
             mc += a.getMarkCap()*wIter.next();
         }
+        return mc;
+    }
 
-        this(src, null, weight, mc);
+    public CalculatedAssessment(List<Assessment> src, List<Integer> weight) {
+        this(src, null, weight, calculateAppropriateMarkCap(src, weight));
+        assert(src.size() == weight.size());
     }
 
     public CalculatedAssessment(
-            List<Assessment> src, List<Boolean> useUncapped, List<int> weight,
+            List<Assessment> src, List<Boolean> useUncapped, List<Integer> weight,
             int markCap
     ){
         this.src = src;
@@ -51,11 +55,10 @@ public class CalculatedAssessment implements Assessment {
         Iterator<Integer> wIter = weight.iterator();
         if (useUncapped == null) {
             for (Assessment a : src) {
-                Iterator<Integer> wIter = weight.iterator();
-                mark += a.getStudentMark(
+                mark += a.getStudentMark(id);
             }
         } else {
-            Iterator<Boolean> uncapIter = weight.iterator();
+            Iterator<Boolean> uncapIter = useUncapped.iterator();
             for (Assessment a : src) {
                 int m;
                 if (uncapIter.next()) {

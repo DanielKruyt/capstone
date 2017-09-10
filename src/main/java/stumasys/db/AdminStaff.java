@@ -1,4 +1,4 @@
-package stumasys;
+package stumasys.db;
 
 public class AdminStaff extends User {
     private String department;

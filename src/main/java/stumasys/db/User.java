@@ -1,4 +1,4 @@
-package stumasys;
+package stumasys.db;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -10,25 +10,38 @@ public class User {
     private byte[] pwHashSalt;      // password in memory on the server this
                                     // application resides on.
 
-    public User(String id, AuthLevel al, byte[] pwDHash, byte[] pwHashSalt) {
+    //public User(String id, byte[] pwDHash, byte[] pwHashSalt, Database db) {
+    public User(String id, byte[] pwDHash, byte[] pwHashSalt) {
         this.id = id;
-        this.authLvl = al;
         this.pwHashSalt = pwHashSalt;
-        this.pwSaltedDblHash = pwDHash
+        this.pwSaltedDblHash = pwDHash;
+        //this.db = db;
     }
 
     public String getId(){
         return this.id;
     }
 
+    public byte[] getSaltedDHash() {
+        return pwSaltedDblHash;
+    }
+
+    public byte[] getHashSalt() {
+        return pwHashSalt;
+    }
+
     public boolean checkPassword(byte[] pwHash) {
         MessageDigest sha512 = MessageDigest.getInstance("SHA-512");
 
         sha512.reset(); // is this necessary? probably not. wont do any harm tho
-        sha512.update(pwHashSalt)
+        sha512.update(pwHashSalt);
         sha512.update(pwHash);
         byte[] result = sha512.digest();
 
         return MessageDigest.isEqual(result, pwSaltedDblHash);
+    }
+
+    protected void setPassword(byte[] pwHash) {
+        //db.setPassword(id, pwHash);
     }
 }

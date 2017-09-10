@@ -1,4 +1,6 @@
-package stumasys;
+package stumasys.db;
+
+import java.util.List;
 
 public class Lecturer extends User {
     private String department;
@@ -6,7 +8,7 @@ public class Lecturer extends User {
 
     public Lecturer(
             String id, String department, List<Course> courses,
-            byte[] pwHash, byte[] pwHashSalt
+            byte[] pwDHash, byte[] pwHashSalt
     ){
         super(id, pwDHash, pwHashSalt);
         involvedIn = courses;

@@ -1,4 +1,4 @@
-package stumasys;
+package stumasys.db;
 
 import java.util.List;
 import java.util.Collections;
@@ -7,7 +7,7 @@ public class Student extends User {
     private List<Course> involvedIn; // list of all courses this student
                                      // is enrolled in, tutoring for, etc.
     public Student(
-            String id, ArrayList<Courses> courses,
+            String id, List<Courses> courses,
             byte[] pwDHash, byte[] pwHashSalt
     ){
         super(id, pwDHash, pwHashSalt);
